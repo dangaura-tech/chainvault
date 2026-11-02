@@ -1,0 +1,32 @@
+chore: initialise Hardhat project
+package.json
+package-lock.json
+hardhat.config.ts
+tsconfig.json
+.gitignore
+.env.example
+LICENSE
+.solhint.json
+
+feat(token): add capped VaultToken with permit and voting
+contracts/token/VaultToken.sol
+test/VaultToken.test.ts
+
+feat(staking): add StakingVault with reward streaming and early-withdrawal fee
+contracts/staking/StakingVault.sol
+contracts/mocks/MockERC20.sol
+test/StakingVault.test.ts
+
+feat(vesting): add TokenVesting with cliff, linear release and revocation
+contracts/vesting/TokenVesting.sol
+test/TokenVesting.test.ts
+
+feat: add deployment script
+scripts/deploy.ts
+
+docs: add README and design notes
+README.md
+docs/design.md
+
+ci: lint, compile, test and coverage
+.github/workflows/ci.yml

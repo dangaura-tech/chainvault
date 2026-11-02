@@ -1,0 +1,29 @@
+{
+  "name": "chainvault",
+  "version": "1.0.0",
+  "description": "ERC-20 governance token, reward-streaming staking vault and token vesting contracts",
+  "license": "MIT",
+  "author": "Dang Truong Minh Le",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "gas": "REPORT_GAS=true hardhat test",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "node": "hardhat node",
+    "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/node": "^22.20.5",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.0",
+    "solhint": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.8.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}
