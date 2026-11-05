@@ -1,0 +1,10 @@
+node_modules/
+.env
+coverage/
+coverage.json
+typechain-types/
+cache/
+artifacts/
+gas-report.txt
+local-solcjs.config.ts
+.DS_Store
