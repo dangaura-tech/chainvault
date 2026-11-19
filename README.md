@@ -60,6 +60,24 @@ holder delegates VLT ─► propose(targets, values, calldatas, description)    
 execute) and covers quorum failure, majority against, proposal threshold, double voting and
 snapshot semantics.
 
+## Merkle airdrops
+
+`MerkleDistributor` distributes tokens to thousands of accounts while storing only a single
+32-byte Merkle root on-chain. Each recipient (or anyone relaying for them) submits a proof of
+their `(index, account, amount)` leaf, and claims are tracked in a bitmap (one storage slot per
+256 recipients). Leaves are double-hashed, which rules out second-preimage attacks with
+internal nodes, and match OpenZeppelin's `StandardMerkleTree` encoding. `claimTo` lets a
+recipient send their allocation to another wallet. After `claimDeadline` the owner, typically
+the governance timelock, sweeps whatever is unclaimed.
+
+```bash
+# allocations.csv: address,amount (whole tokens)
+npx ts-node scripts/build-merkle.ts allocations.csv distribution.json   # root + per-address proofs
+```
+
+Deploy with the printed root, fund the contract with the total, and serve `distribution.json`
+to a claim page, which looks up the connecting address and calls `claim(index, account, amount, proof)`.
+
 ## Security considerations
 
 - `ReentrancyGuard` on every state-changing user function, checks-effects-interactions ordering
@@ -121,8 +139,10 @@ contracts/
 ├── vesting/TokenVesting.sol
 ├── governance/VaultGovernor.sol
 ├── governance/VaultTimelock.sol
+├── distribution/MerkleDistributor.sol
 └── mocks/MockERC20.sol        # test token with optional transfer fee
 scripts/deploy.ts
+scripts/build-merkle.ts        # CSV -> Merkle root and proofs (scripts/lib/merkle.ts)
 test/                          # Hardhat + chai + network-helpers (time travel)
 docs/design.md
 ```
